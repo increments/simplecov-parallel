@@ -1,0 +1,18 @@
+Metrics/LineLength:
+  Max: 100
+
+Style/Documentation:
+  Enabled: false
+
+Style/EmptyElse:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
+Style/RegexpLiteral:
+  Exclude:
+    - '*.gemspec'
+
+Style/SingleLineBlockParams:
+  Enabled: false
