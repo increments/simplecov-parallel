@@ -1,6 +1,6 @@
 require 'simplecov/parallel/version'
 
-module Simplecov
+module SimpleCov
   module Parallel
     # Your code goes here...
   end
