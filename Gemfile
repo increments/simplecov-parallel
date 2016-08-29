@@ -1,4 +1,7 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in simplecov-parallel.gemspec
 gemspec
+
+group :development, :test do
+  gem 'rake', '~> 10.0'
+end
