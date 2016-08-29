@@ -1,4 +1,4 @@
-require "simplecov/parallel/version"
+require 'simplecov/parallel/version'
 
 module Simplecov
   module Parallel
