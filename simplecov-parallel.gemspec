@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Yuji Nakayama']
   spec.email         = ['nkymyj@gmail.com']
 
-  spec.summary       = 'Parallelism support for SimpleCov'
+  spec.summary       = 'SimpleCov extension for parallelism support'
   spec.description   = spec.summary
   spec.homepage      = 'https://github.com/increments/simplecov-parallel'
   spec.license       = 'MIT'

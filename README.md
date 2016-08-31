@@ -1,41 +1,63 @@
 # SimpleCov::Parallel
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/simplecov/parallel`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+**SimpleCov::Parallel** is a SimpleCov extension for parallelism support.
+Currently only [CircleCI parallelism](https://circleci.com/docs/parallelism/) is supported.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add these lines to your application's Gemfile:
 
 ```ruby
+# simplecov 0.12.0 has a bug in result merger and the bugfix is not yet released.
+# https://github.com/colszowka/simplecov/pull/513
+gem 'simplecov', github: 'colszowka/simplecov'
 gem 'simplecov-parallel'
 ```
 
 And then execute:
 
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install simplecov-parallel
+```bash
+$ bundle install
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+You just need to invoke `SimpleCov::Parallel.activate` before start tracking coverage:
 
-## Development
+```ruby
+# spec/spec_helper.rb
+require 'simplecov/parallel'
+SimpleCov::Parallel.activate
+SimpleCov.start
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+SimpleCov::Parallel automatically detects the best parallelism support for the current environment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+You can use any formatter transparently
+since SimpleCov::Parallel merges the results into `SimpleCov.result`,
+which is a basic API of SimpleCov.
 
-## Contributing
+## CircleCI
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/simplecov-parallel.
+When using SimpleCov::Parallel on CircleCI:
 
+* [Add `parallel: true`](https://circleci.com/docs/parallel-manual-setup/)
+  to the test command (e.g. `rspec`) in your `circle.yml`.
+* [Set up parallelism](https://circleci.com/docs/setting-up-parallelism/)
+  for your project from the CircleCI web console.
+
+```yaml
+# circle.yml
+test:
+  override:
+    - bundle exec rspec:
+        parallel: true
+        files:
+          - spec/**/*_spec.rb
+```
+
+The formatter will be executed only on the first node (`CIRCLE_NODE_INDEX` is `0`).
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
