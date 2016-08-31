@@ -97,3 +97,6 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 end
+
+# We cannot use simplecov-parallel itself for simplecov-parallel's specs
+# because we need to load simplecov-parallel _before_ running the specs...
