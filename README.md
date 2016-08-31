@@ -6,6 +6,7 @@
 # SimpleCov::Parallel
 
 **SimpleCov::Parallel** is a [SimpleCov](https://github.com/colszowka/simplecov) extension for parallelism support.
+It automatically transfers each node coverage data to a single master node and merges the data.
 Currently only [CircleCI parallelism](https://circleci.com/docs/parallelism/) is supported.
 
 ## Installation
