@@ -1,3 +1,8 @@
+[![Gem Version](http://img.shields.io/gem/v/simplecov-parallel.svg?style=flat)](http://badge.fury.io/rb/simplecov-parallel)
+[![Dependency Status](http://img.shields.io/gemnasium/increments/simplecov-parallel.svg?style=flat)](https://gemnasium.com/increments/simplecov-parallel)
+[![CircleCI](https://circleci.com/gh/increments/simplecov-parallel.svg?style=shield)](https://circleci.com/gh/increments/simplecov-parallel)
+[![Code Climate](https://img.shields.io/codeclimate/github/increments/simplecov-parallel.svg?style=flat)](https://codeclimate.com/github/increments/simplecov-parallel)
+
 # SimpleCov::Parallel
 
 **SimpleCov::Parallel** is a [SimpleCov](https://github.com/colszowka/simplecov) extension for parallelism support.
