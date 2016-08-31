@@ -5,7 +5,7 @@ require 'simplecov/parallel/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'simplecov-parallel'
-  spec.version       = SimpleCov::Parallel::VERSION
+  spec.version       = SimpleCov::Parallel::Version.to_s
   spec.authors       = ['Yuji Nakayama']
   spec.email         = ['nkymyj@gmail.com']
 

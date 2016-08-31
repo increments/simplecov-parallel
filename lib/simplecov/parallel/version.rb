@@ -1,5 +1,13 @@
 module SimpleCov
   module Parallel
-    VERSION = '0.1.0'.freeze
+    module Version
+      MAJOR = 0
+      MINOR = 1
+      PATCH = 0
+
+      def self.to_s
+        [MAJOR, MINOR, PATCH].join('.')
+      end
+    end
   end
 end
