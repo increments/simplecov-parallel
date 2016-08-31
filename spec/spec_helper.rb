@@ -100,3 +100,7 @@ end
 
 # We cannot use simplecov-parallel itself for simplecov-parallel's specs
 # because we need to load simplecov-parallel _before_ running the specs...
+if ENV['CI']
+  require 'codeclimate-test-reporter'
+  CodeClimate::TestReporter.start
+end
