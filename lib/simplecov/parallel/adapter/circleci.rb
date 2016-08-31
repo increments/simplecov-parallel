@@ -59,7 +59,7 @@ module SimpleCov
         def merge_slave_node_results
           Dir.glob('node*') do |node_dir|
             results = load_results_from_dir(node_dir)
-            merge_and_save_results_to_dir(results, SimpleCov.coverage_path)
+            merge_and_save_results(results)
           end
         end
 
@@ -69,10 +69,8 @@ module SimpleCov
           end
         end
 
-        def merge_and_save_results_to_dir(results, dir)
-          with_changing_resultset_path(dir) do
-            results.each { |result| SimpleCov::ResultMerger.store_result(result) }
-          end
+        def merge_and_save_results(results)
+          results.each { |result| SimpleCov::ResultMerger.store_result(result) }
         end
 
         def with_changing_resultset_path(dir)
@@ -80,15 +78,19 @@ module SimpleCov
           # SimpleCov.root and SimpleCov.coverage_dir does not work well because .root is used in
           # the root filter, which is invoked from SimpleCov::Result#initialize.
           # https://github.com/colszowka/simplecov/blob/v0.12.0/lib/simplecov/defaults.rb#L9
-          unbound_method = SimpleCov::ResultMerger.method(:resultset_path).unbind
+          method_name = :resultset_path
+          original_method = SimpleCov::ResultMerger.method(method_name)
+          singleton_class = SimpleCov::ResultMerger.singleton_class
 
-          SimpleCov::ResultMerger.define_singleton_method(:resultset_path) do
-            File.join(dir, '.resultset.json')
+          singleton_class.__send__(:undef_method, method_name)
+          singleton_class.__send__(:define_method, method_name) { File.join(dir, '.resultset.json') }
+
+          begin
+            yield
+          ensure
+            singleton_class.__send__(:undef_method, method_name)
+            singleton_class.__send__(:define_method, method_name, original_method)
           end
-
-          yield
-        ensure
-          unbound_method.bind(SimpleCov::ResultMerger)
         end
 
         def current_node
