@@ -27,8 +27,8 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_runtime_dependency 'circleci-parallel'
-  spec.add_runtime_dependency 'simplecov'
+  spec.add_runtime_dependency 'circleci-parallel', '~> 0.4'
+  spec.add_runtime_dependency 'simplecov', '~> 0.12'
 
   spec.add_development_dependency 'bundler', '~> 1.12'
 end

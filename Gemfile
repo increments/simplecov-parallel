@@ -7,7 +7,7 @@ gemspec
 gem 'simplecov', github: 'colszowka/simplecov'
 
 group :development, :test do
-  gem 'rake', '~> 10.0'
-  gem 'rspec'
-  gem 'rubocop'
+  gem 'rake', '~> 11.0'
+  gem 'rspec', '~> 3.5'
+  gem 'rubocop', '~> 0.42'
 end
