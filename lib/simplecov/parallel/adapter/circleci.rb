@@ -78,23 +78,43 @@ module SimpleCov
           # SimpleCov.root and SimpleCov.coverage_dir does not work well because .root is used in
           # the root filter, which is invoked from SimpleCov::Result#initialize.
           # https://github.com/colszowka/simplecov/blob/v0.12.0/lib/simplecov/defaults.rb#L9
-          method_name = :resultset_path
-          original_method = SimpleCov::ResultMerger.method(method_name)
-          singleton_class = SimpleCov::ResultMerger.singleton_class
+          method_stasher = MethodStasher.new(SimpleCov::ResultMerger, :resultset_path)
+          method_stasher.stash
 
-          singleton_class.__send__(:undef_method, method_name)
-          singleton_class.__send__(:define_method, method_name) { File.join(dir, '.resultset.json') }
+          SimpleCov::ResultMerger.define_singleton_method(:resultset_path) do
+            File.join(dir, '.resultset.json')
+          end
 
           begin
             yield
           ensure
-            singleton_class.__send__(:undef_method, method_name)
-            singleton_class.__send__(:define_method, method_name, original_method)
+            method_stasher.pop
           end
         end
 
         def current_node
           ::CircleCI::Parallel.current_node
+        end
+
+        MethodStasher = Struct.new(:object, :method_name) do
+          def stash
+            @original_method = object.method(method_name)
+            klass.__send__(:undef_method, method_name)
+          end
+
+          def pop
+            if klass.__send__(:method_defined?, method_name)
+              klass.__send__(:undef_method, method_name)
+            end
+
+            klass.__send__(:define_method, method_name, @original_method)
+          end
+
+          private
+
+          def klass
+            object.singleton_class
+          end
         end
       end
     end
