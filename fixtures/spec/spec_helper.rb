@@ -10,8 +10,10 @@ module SimpleCov
   end
 end
 
-require 'simplecov/parallel'
+require 'circleci/parallel'
 CircleCI::Parallel.configuration.mock_mode = true
+
+require 'simplecov/parallel'
 SimpleCov::Parallel.activate
 SimpleCov.start do
   formatter SimpleCov::DumpFormatter

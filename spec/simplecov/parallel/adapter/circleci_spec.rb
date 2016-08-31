@@ -1,4 +1,6 @@
 require 'simplecov/parallel/adapter/circleci'
+require 'circleci/parallel'
+require 'json'
 
 module SimpleCov::Parallel
   RSpec.describe Adapter::CircleCI do

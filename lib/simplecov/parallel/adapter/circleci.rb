@@ -1,7 +1,4 @@
 require 'simplecov/parallel/adapter/base'
-require 'circleci/parallel'
-require 'fileutils'
-require 'simplecov'
 
 module SimpleCov
   module Parallel
@@ -13,6 +10,9 @@ module SimpleCov
         end
 
         def activate
+          require 'circleci/parallel'
+          require 'fileutils'
+
           SimpleCov.command_name("#{SimpleCov.command_name} #{current_node.name}")
 
           SimpleCov.at_exit do

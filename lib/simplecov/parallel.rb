@@ -1,3 +1,4 @@
+require 'simplecov'
 require 'simplecov/parallel/adapter/circleci'
 
 module SimpleCov
