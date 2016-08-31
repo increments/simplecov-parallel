@@ -41,10 +41,6 @@ module SimpleCov::Parallel
       JSON.parse(json).freeze
     end
 
-    let(:silent) do
-      true
-    end
-
     context 'when each node coverage does not overlap' do
       subject(:merged_result) do
         spec_files_by_node = {
