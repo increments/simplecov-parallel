@@ -1,6 +1,6 @@
 # SimpleCov::Parallel
 
-**SimpleCov::Parallel** is a SimpleCov extension for parallelism support.
+**SimpleCov::Parallel** is a [SimpleCov](https://github.com/colszowka/simplecov) extension for parallelism support.
 Currently only [CircleCI parallelism](https://circleci.com/docs/parallelism/) is supported.
 
 ## Installation
