@@ -2,6 +2,10 @@
 
 ## Development
 
+## v0.1.2
+
+* Refactor method stashing.
+
 ## v0.1.1
 
 * Fix a bug in method stashing of `SimpleCov::ResultMerger#resultset_path`.
