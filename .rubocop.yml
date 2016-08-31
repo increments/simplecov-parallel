@@ -1,5 +1,15 @@
+AllCops:
+  Exclude:
+    - fixtures/**/*
+    - vendor/**/*
+  TargetRubyVersion: 2.1
+
 Metrics/LineLength:
   Max: 100
+
+Style/ClassAndModuleChildren:
+  Exclude:
+    - spec/**/*
 
 Style/Documentation:
   Enabled: false
