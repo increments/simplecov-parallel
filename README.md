@@ -14,9 +14,6 @@ Currently only [CircleCI parallelism](https://circleci.com/docs/parallelism/) is
 Add these lines to your application's Gemfile:
 
 ```ruby
-# simplecov 0.12.0 has a bug in result merger and the bugfix is not yet released.
-# https://github.com/colszowka/simplecov/pull/513
-gem 'simplecov', github: 'colszowka/simplecov'
 gem 'simplecov-parallel'
 ```
 
