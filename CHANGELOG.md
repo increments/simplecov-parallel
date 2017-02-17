@@ -2,6 +2,10 @@
 
 ## Development
 
+## v0.2.0
+
+* Require `simplecov` 0.13 or later.
+
 ## v0.1.2
 
 * Refactor method stashing.
