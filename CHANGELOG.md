@@ -2,6 +2,8 @@
 
 ## Development
 
+## v0.3.0
+
 * Require `circleci-parallel` 0.5.0 or later.
 
 ## v0.2.0
