@@ -12,22 +12,35 @@ module SimpleCov
         def activate
           require 'circleci/parallel'
           require 'fileutils'
-
-          SimpleCov.command_name("#{SimpleCov.command_name} #{current_node.name}")
-
-          SimpleCov.at_exit do
-            puts 'Merging SimpleCov result into the master node...'
-            export_slave_node_result
-            join_nodes_and_merge_slave_node_results
-            merge_and_format_master_node_result
-          end
+          configure_circleci_parallel
+          configure_simplecov
         end
 
         private
 
-        def export_slave_node_result
-          return if current_node.master?
+        def configure_circleci_parallel
+          ::CircleCI::Parallel.configure do |config|
+            config.on_each_slave_node.before_sync do
+              export_slave_node_result
+            end
 
+            config.on_master_node.after_download do
+              merge_slave_node_results
+              merge_master_node_result_and_format
+            end
+          end
+        end
+
+        def configure_simplecov
+          SimpleCov.command_name("#{SimpleCov.command_name} #{current_node.name}")
+
+          SimpleCov.at_exit do
+            puts 'Merging SimpleCov result into the master node...'
+            ::CircleCI::Parallel.sync
+          end
+        end
+
+        def export_slave_node_result
           # Export result to coverage/.resultset.json
           # https://github.com/colszowka/simplecov/blob/v0.12.0/lib/simplecov.rb#L89
           raise 'SimpleCov.use_merging must be set to true' unless SimpleCov.use_merging
@@ -39,28 +52,18 @@ module SimpleCov
           )
         end
 
-        def join_nodes_and_merge_slave_node_results
-          ::CircleCI::Parallel.configuration.after_download do
-            merge_slave_node_results
-          end
-
-          ::CircleCI::Parallel.join
-        end
-
-        def merge_and_format_master_node_result
-          return unless current_node.master?
-
-          # Invoking `SimpleCov.result` here merges the master node data into the slave node data.
-          # `SimpleCov.result.format!` is the default behavior of at_exit:
-          # https://github.com/colszowka/simplecov/blob/v0.12.0/lib/simplecov/configuration.rb#L172
-          SimpleCov.result.format!
-        end
-
         def merge_slave_node_results
           Dir.glob('node*') do |node_dir|
             results = load_results_from_dir(node_dir)
             merge_and_save_results(results)
           end
+        end
+
+        def merge_master_node_result_and_format
+          # Invoking `SimpleCov.result` here merges the master node data into the slave node data.
+          # `SimpleCov.result.format!` is the default behavior of at_exit:
+          # https://github.com/colszowka/simplecov/blob/v0.12.0/lib/simplecov/configuration.rb#L172
+          SimpleCov.result.format!
         end
 
         def load_results_from_dir(dir)

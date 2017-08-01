@@ -2,6 +2,8 @@
 
 ## Development
 
+* Require `circleci-parallel` 0.5.0 or later.
+
 ## v0.2.0
 
 * Require `simplecov` 0.13 or later.
