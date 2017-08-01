@@ -22,7 +22,7 @@ module SimpleCov::Parallel
       Bundler.with_clean_env do
         Dir.chdir('fixtures') do
           ENV.update(env)
-          command = %w(bundle exec rspec).concat(spec_files)
+          command = %w[bundle exec rspec].concat(spec_files)
           run_command(command, silent: true)
         end
       end
