@@ -59,7 +59,7 @@ test:
           - spec/**/*_spec.rb
 ```
 
-The formatter will be executed only on the first node (`CIRCLE_NODE_INDEX` is `0`).
+The SimpleCov formatter will be executed only on the first node (where `CIRCLE_NODE_INDEX` is `0`).
 
 ## License
 
