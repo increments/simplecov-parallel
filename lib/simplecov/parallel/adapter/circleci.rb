@@ -63,11 +63,13 @@ module SimpleCov
           # Invoking `SimpleCov.result` here merges the master node data into the slave node data.
           # `SimpleCov.result.format!` is the default behavior of at_exit:
           # https://github.com/colszowka/simplecov/blob/v0.12.0/lib/simplecov/configuration.rb#L172
+          SimpleCov::ResultMerger.clear_resultset
           SimpleCov.result.format!
         end
 
         def load_results_from_dir(dir)
           with_changing_resultset_path(dir) do
+            SimpleCov::ResultMerger.clear_resultset
             SimpleCov::ResultMerger.results
           end
         end
