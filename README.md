@@ -1,7 +1,7 @@
-[![Gem Version](http://img.shields.io/gem/v/simplecov-parallel.svg?style=flat)](http://badge.fury.io/rb/simplecov-parallel)
-[![Dependency Status](http://img.shields.io/gemnasium/increments/simplecov-parallel.svg?style=flat)](https://gemnasium.com/increments/simplecov-parallel)
+[![Gem Version](https://badge.fury.io/rb/simplecov-parallel.svg)](http://badge.fury.io/rb/simplecov-parallel)
+[![Dependency Status](https://gemnasium.com/increments/simplecov-parallel.svg)](https://gemnasium.com/increments/simplecov-parallel)
 [![CircleCI](https://circleci.com/gh/increments/simplecov-parallel.svg?style=shield)](https://circleci.com/gh/increments/simplecov-parallel)
-[![Code Climate](https://img.shields.io/codeclimate/github/increments/simplecov-parallel.svg?style=flat)](https://codeclimate.com/github/increments/simplecov-parallel)
+[![Code Climate](https://codeclimate.com/github/increments/simplecov-parallel/badges/gpa.svg)](https://codeclimate.com/github/increments/simplecov-parallel)
 
 # SimpleCov::Parallel
 
